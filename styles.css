@@ -1,14 +1,30 @@
 :root {
   color-scheme: light;
-  --bg: #f7f3ee;
-  --surface: #ffffff;
-  --surface-alt: #fff7e9;
-  --text: #1d2433;
-  --muted: #5d6472;
-  --accent: #cb5f4a;
-  --accent-dark: #8f3e30;
-  --border: #e6dccf;
-  --shadow: 0 16px 40px rgba(30, 36, 51, 0.08);
+  --bg: #ede5d8;
+  --surface: #faf5ee;
+  --surface-alt: #f5ead8;
+  --text: #1c1a17;
+  --muted: #6b6057;
+  --accent: #c04e30;
+  --accent-dark: #8a3318;
+  --border: #d8ccba;
+  --shadow: 0 8px 32px rgba(20, 15, 10, 0.12);
+
+  /* Dark palette for hero / day headers */
+  --dark: #1e2b1e;
+  --dark-alt: #263426;
+  --dark-text: #f5e8d4;
+  --dark-muted: #a8b89e;
+  --dark-border: rgba(245, 232, 212, 0.15);
+
+  /* Stage colours */
+  --stage-main-color: #c04e30;
+  --stage-main-bg: #fdf0ec;
+  --stage-hidden-color: #3d7547;
+  --stage-hidden-bg: #eaf4ec;
+  --stage-after-color: #6b4a9a;
+  --stage-after-bg: #f2edf9;
+
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -18,12 +34,16 @@
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #f3eee5 0%, #f9f7f2 100%);
+  background: linear-gradient(180deg, #e8ddd0 0%, #f0ebe2 100%);
   color: var(--text);
 }
 
 a {
   color: var(--accent-dark);
+}
+
+.hero a:not(.button-link) {
+  color: var(--accent);
 }
 
 .page {
@@ -41,10 +61,19 @@ a {
 
 .hero {
   overflow: hidden;
-  border-radius: 24px;
-  background: var(--surface);
+  border-radius: 20px;
+  background: var(--dark);
   box-shadow: var(--shadow);
   margin-bottom: 1.5rem;
+  color: var(--dark-text);
+}
+
+.hero p {
+  color: var(--dark-muted);
+}
+
+.hero h1 {
+  color: var(--dark-text);
 }
 
 .hero-image {
@@ -55,16 +84,16 @@ a {
 }
 
 .hero-content {
-  padding: 1.5rem;
+  padding: 2rem 1.75rem;
 }
 
 .eyebrow {
   margin: 0 0 0.5rem;
-  color: var(--accent-dark);
+  color: var(--accent);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 h1,
@@ -84,9 +113,16 @@ p {
 .pill {
   padding: 0.5rem 0.75rem;
   border-radius: 999px;
+  background: rgba(245, 232, 212, 0.1);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text);
+  font-size: 0.9rem;
+}
+
+.card .pill {
   background: var(--surface-alt);
-  border: 1px solid var(--border);
-  font-size: 0.95rem;
+  border-color: var(--border);
+  color: var(--text);
 }
 
 .grid {
@@ -97,7 +133,7 @@ p {
 
 .card {
   background: var(--surface);
-  border-radius: 20px;
+  border-radius: 16px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   padding: 1.25rem;
@@ -155,6 +191,140 @@ p {
 
 .section-body > *:last-child {
   margin-bottom: 0;
+}
+
+/* ── Schedule ─────────────────────────────── */
+
+.schedule-section {
+  grid-column: 1 / -1;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.day-card {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.day-header {
+  background: var(--dark-alt);
+  color: var(--dark-text);
+  padding: 1rem 1.25rem;
+}
+
+.day-header h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+  color: var(--dark-text);
+  line-height: 1.3;
+}
+
+.day-theme-text {
+  font-size: 0.82rem;
+  color: var(--accent);
+  margin: 0 0 0.15rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.day-meta-text {
+  font-size: 0.82rem;
+  color: var(--dark-muted);
+  margin: 0.2rem 0 0;
+}
+
+.day-body {
+  padding: 1rem 1.25rem;
+}
+
+.schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0;
+}
+
+.schedule-entry {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.schedule-entry:first-child {
+  padding-top: 0;
+}
+
+.schedule-entry:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.entry-time {
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: nowrap;
+  min-width: 5rem;
+  padding-top: 0.1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry-artist {
+  display: block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin: 0 0 0.3rem;
+  line-height: 1.3;
+}
+
+/* ── Stage badges ─────────────────────────── */
+
+.stage-badge {
+  display: inline-block;
+  padding: 0.15em 0.55em;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid currentColor;
+  line-height: 1.6;
+}
+
+.stage-main {
+  color: var(--stage-main-color);
+  background: var(--stage-main-bg);
+}
+
+.stage-hidden {
+  color: var(--stage-hidden-color);
+  background: var(--stage-hidden-bg);
+}
+
+.stage-after {
+  color: var(--stage-after-color);
+  background: var(--stage-after-bg);
+}
+
+.stage-default {
+  color: var(--muted);
+  background: var(--surface-alt);
+  border-color: var(--border);
 }
 
 @media (max-width: 640px) {

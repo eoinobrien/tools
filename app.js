@@ -209,11 +209,22 @@ const createCalendarHref = (festival, schedule = []) => {
   return URL.createObjectURL(new Blob([calendar], { type: "text/calendar;charset=utf-8" }));
 };
 
-const createSection = (title, content) => {
+const createSection = (title, content, extraClass = "") => {
   const section = sectionTemplate.content.firstElementChild.cloneNode(true);
+  if (extraClass) {
+    section.className += ` ${extraClass}`;
+  }
   section.querySelector("h2").textContent = title;
   section.querySelector(".section-body").append(content);
   return section;
+};
+
+const getStageClass = (stage = "") => {
+  const s = stage.toLowerCase();
+  if (s.includes("main")) return "stage-main";
+  if (s.includes("hidden") || s.includes("gem")) return "stage-hidden";
+  if (s.includes("after") || s.includes("party")) return "stage-after";
+  return "stage-default";
 };
 
 const createList = (items, renderItem) => {
@@ -330,39 +341,84 @@ const renderSchedule = (schedule = []) => {
     return null;
   }
 
-  return createSection(
-    "Schedule",
-    createList(schedule, (day) => {
-      const wrapper = document.createElement("div");
-      const title = document.createElement("h3");
-      title.textContent = day.label;
-      wrapper.append(title);
+  const daysGrid = document.createElement("div");
+  daysGrid.className = "days-grid";
 
-      if (day.theme) {
-        wrapper.append(createParagraph(day.theme, "muted"));
-      }
+  schedule.forEach((day) => {
+    const dayCard = document.createElement("div");
+    dayCard.className = "day-card";
 
-      if (day.gatesOpen) {
-        wrapper.append(createParagraph(`Gates open: ${day.gatesOpen}`));
-      }
+    // Day header
+    const header = document.createElement("div");
+    header.className = "day-header";
 
-      if (day.notes?.length) {
-        wrapper.append(createBulletList(day.notes));
-      }
+    const title = document.createElement("h3");
+    title.textContent = day.label;
+    header.append(title);
 
-      wrapper.append(
-        createList(day.entries || [], (entry) => {
-          const entryWrap = document.createElement("div");
-          const strong = document.createElement("strong");
-          strong.textContent = `${entry.time} — ${entry.artist}`;
-          entryWrap.append(strong, createParagraph(entry.stage, "muted"));
-          return entryWrap;
-        })
-      );
+    if (day.theme) {
+      const theme = document.createElement("p");
+      theme.className = "day-theme-text";
+      theme.textContent = day.theme;
+      header.append(theme);
+    }
 
-      return wrapper;
-    })
-  );
+    if (day.gatesOpen) {
+      const gates = document.createElement("p");
+      gates.className = "day-meta-text";
+      gates.textContent = `Gates open: ${day.gatesOpen}`;
+      header.append(gates);
+    }
+
+    dayCard.append(header);
+
+    // Day body
+    const body = document.createElement("div");
+    body.className = "day-body";
+
+    if (day.notes?.length) {
+      day.notes.forEach((note) => body.append(createParagraph(note, "muted")));
+    }
+
+    if (day.entries?.length) {
+      const list = document.createElement("ul");
+      list.className = "schedule-list";
+
+      day.entries.forEach((entry) => {
+        const li = document.createElement("li");
+        li.className = "schedule-entry";
+
+        const time = document.createElement("span");
+        time.className = "entry-time";
+        time.textContent = entry.time;
+
+        const info = document.createElement("div");
+        info.className = "entry-info";
+
+        const artist = document.createElement("span");
+        artist.className = "entry-artist";
+        artist.textContent = entry.artist;
+        info.append(artist);
+
+        if (entry.stage) {
+          const badge = document.createElement("span");
+          badge.className = `stage-badge ${getStageClass(entry.stage)}`;
+          badge.textContent = entry.stage;
+          info.append(badge);
+        }
+
+        li.append(time, info);
+        list.append(li);
+      });
+
+      body.append(list);
+    }
+
+    dayCard.append(body);
+    daysGrid.append(dayCard);
+  });
+
+  return createSection("Schedule", daysGrid, "schedule-section");
 };
 
 const renderWellness = (wellnessArea) => {
