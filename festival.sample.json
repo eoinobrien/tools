@@ -1,0 +1,126 @@
+{
+  "festival": {
+    "name": "Sunset Fields Festival",
+    "tagline": "Three days of music, food, and late summer energy.",
+    "description": "Sunset Fields Festival is a family-friendly weekend celebration with live music, local food vendors, wellness sessions, and craft stalls.",
+    "dates": {
+      "start": "2026-08-21",
+      "end": "2026-08-23",
+      "displayText": "21–23 August 2026"
+    },
+    "location": {
+      "venue": "Sunset Fields",
+      "address": "42 Meadow Lane",
+      "city": "Kilkenny",
+      "country": "Ireland",
+      "mapsUrl": "https://maps.example.com/sunset-fields"
+    },
+    "websiteUrl": "https://example.com/festival",
+    "heroImage": {
+      "url": "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1600&q=80",
+      "alt": "Crowd at an outdoor summer music festival"
+    },
+    "genres": [
+      "Indie",
+      "Electronic",
+      "Folk"
+    ],
+    "highlights": [
+      "Over 20 live acts across two stages",
+      "Local artisan food market",
+      "Morning yoga and family activities"
+    ]
+  },
+  "tickets": [
+    {
+      "name": "Weekend Pass",
+      "price": "€149",
+      "description": "Access to all three festival days.",
+      "purchaseUrl": "https://example.com/tickets/weekend"
+    },
+    {
+      "name": "Saturday Day Ticket",
+      "price": "€65",
+      "description": "Single-day access for Saturday.",
+      "purchaseUrl": "https://example.com/tickets/saturday"
+    }
+  ],
+  "lineup": [
+    {
+      "name": "The North Coast",
+      "genre": "Indie Rock",
+      "description": "Atmospheric guitar-led headliners.",
+      "websiteUrl": "https://example.com/the-north-coast"
+    },
+    {
+      "name": "Mara Bloom",
+      "genre": "Electronic",
+      "description": "Late-night dance set."
+    },
+    {
+      "name": "Willow & Ash",
+      "genre": "Folk",
+      "description": "Harmony-driven acoustic trio."
+    }
+  ],
+  "schedule": [
+    {
+      "date": "2026-08-21",
+      "label": "Friday",
+      "entries": [
+        {
+          "time": "18:00",
+          "artist": "Willow & Ash",
+          "stage": "Main Stage"
+        },
+        {
+          "time": "20:30",
+          "artist": "The North Coast",
+          "stage": "Main Stage"
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "label": "Saturday",
+      "entries": [
+        {
+          "time": "16:00",
+          "artist": "Oak Room DJ Set",
+          "stage": "Forest Stage"
+        },
+        {
+          "time": "22:00",
+          "artist": "Mara Bloom",
+          "stage": "Forest Stage",
+          "notes": "Late set"
+        }
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "question": "Can I bring children?",
+      "answer": "Yes, children are welcome and under-12s can attend free with an adult."
+    },
+    {
+      "question": "Is parking available?",
+      "answer": "Yes, on-site parking is available and can be booked in advance."
+    }
+  ],
+  "contact": {
+    "email": "hello@example.com",
+    "phone": "+353 1 555 0101",
+    "instagram": "https://instagram.com/examplefestival"
+  },
+  "links": [
+    {
+      "label": "Volunteer application",
+      "url": "https://example.com/volunteer"
+    },
+    {
+      "label": "Camping information",
+      "url": "https://example.com/camping"
+    }
+  ]
+}
