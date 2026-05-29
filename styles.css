@@ -1,15 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+
 :root {
   color-scheme: light;
-  --bg: #f7f3ee;
+  --bg: #f5efe2;
   --surface: #ffffff;
-  --surface-alt: #fff7e9;
-  --text: #1d2433;
-  --muted: #5d6472;
-  --accent: #cb5f4a;
-  --accent-dark: #8f3e30;
-  --border: #e6dccf;
-  --shadow: 0 16px 40px rgba(30, 36, 51, 0.08);
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --surface-alt: #fff9ee;
+  --text: #252839;
+  --muted: #6a6d7c;
+  --accent: #ff8a18;
+  --accent-dark: #d46b00;
+  --accent-yellow: #fce672;
+  --border: #e5ddd0;
+  --shadow: 0 8px 32px rgba(37, 40, 57, 0.09);
+
+  --stage-main: #ff8a18;
+  --stage-main-text: #ffffff;
+  --stage-hidden: #fce672;
+  --stage-hidden-text: #252839;
+  --stage-party: #252839;
+  --stage-party-text: #fce672;
+
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -18,7 +29,7 @@
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, #f3eee5 0%, #f9f7f2 100%);
+  background: var(--bg);
   color: var(--text);
 }
 
@@ -60,11 +71,11 @@ a {
 
 .eyebrow {
   margin: 0 0 0.5rem;
-  color: var(--accent-dark);
+  color: var(--accent);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
 }
 
 h1,
@@ -72,6 +83,21 @@ h2,
 h3,
 p {
   margin-top: 0;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
 }
 
 .meta {
@@ -82,11 +108,12 @@ p {
 }
 
 .pill {
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 999px;
   background: var(--surface-alt);
   border: 1px solid var(--border);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .grid {
@@ -100,7 +127,7 @@ p {
   border-radius: 20px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
-  padding: 1.25rem;
+  padding: 1.5rem;
 }
 
 .section {
@@ -140,12 +167,14 @@ p {
   align-items: center;
   justify-content: center;
   min-height: 2.75rem;
-  padding: 0.65rem 1rem;
+  padding: 0.65rem 1.25rem;
   border-radius: 999px;
   background: var(--accent);
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.9rem;
   text-decoration: none;
+  letter-spacing: 0.01em;
 }
 
 .button-link:hover,
@@ -162,3 +191,112 @@ p {
     height: 220px;
   }
 }
+
+/* ── Schedule: day cards ── */
+.schedule-days {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.day-card {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--text);
+  color: #fff;
+}
+
+.day-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+
+.day-theme {
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.day-body {
+  padding: 0.75rem 1.25rem 1rem;
+  background: var(--surface);
+}
+
+.day-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.day-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ── Schedule: entries ── */
+.entry {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.75rem;
+}
+
+.entry-time {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--muted);
+  flex-shrink: 0;
+  min-width: 5rem;
+}
+
+.entry-artist {
+  font-weight: 600;
+  flex: 1;
+}
+
+/* ── Stage badges ── */
+.stage-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.stage-main-stage {
+  background: var(--stage-main);
+  color: var(--stage-main-text);
+}
+
+.stage-hidden-gems-stage {
+  background: var(--stage-hidden);
+  color: var(--stage-hidden-text);
+}
+
+.stage-the-after-party {
+  background: var(--stage-party);
+  color: var(--stage-party-text);
+}
+
