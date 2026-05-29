@@ -18,7 +18,13 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000`.
 
-To replace the sample content later, update `festival.sample.json` with festival details that conform to `festival.schema.json`.
+To replace the sample content later, update `festival.sample.json` with festival details that conform to `festival.schema.json`, then regenerate the calendar file:
+
+```bash
+node generate-ics.js
+```
+
+This writes `schedule.ics` to the repository root. Commit both `festival.sample.json` and `schedule.ics` together so the hosted file stays in sync.
 
 ## GitHub Pages
 
@@ -30,7 +36,7 @@ The current data structure supports:
 
 - festival overview
 - day-by-day schedule
-- calendar export of the schedule as an `.ics` file for import on phones and calendar apps
+- calendar subscription via `webcal://` and one-off download as an `.ics` file; `schedule.ics` is generated automatically on deploy from `festival.sample.json`
 - wellness information
 - visitor guidance such as weather, access, age limits, payments, and parking
 - transport, rules, contact details, and official links
