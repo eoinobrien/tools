@@ -1,0 +1,382 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/festival.schema.json",
+  "title": "Festival Details",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "festival",
+    "schedule",
+    "links"
+  ],
+  "properties": {
+    "festival": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "dates",
+        "location",
+        "description"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dates": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end",
+            "displayText"
+          ],
+          "properties": {
+            "start": {
+              "type": "string",
+              "format": "date"
+            },
+            "end": {
+              "type": "string",
+              "format": "date"
+            },
+            "displayText": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "city",
+            "country"
+          ],
+          "properties": {
+            "venue": {
+              "type": "string"
+            },
+            "city": {
+              "type": "string",
+              "minLength": 1
+            },
+            "country": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "websiteUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "highlights": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "schedule": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/scheduleDay"
+      }
+    },
+    "wellnessArea": {
+      "$ref": "#/$defs/wellnessArea"
+    },
+    "weatherAndGear": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "seatingAndAccessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "restrictions": {
+          "type": "string"
+        },
+        "amenities": {
+          "type": "string"
+        },
+        "accessibilityAccommodations": {
+          "type": "string"
+        }
+      }
+    },
+    "ageRestrictions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "days": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/labeledText"
+          }
+        },
+        "exceptions": {
+          "type": "string"
+        }
+      }
+    },
+    "paymentsOnSite": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "acceptedMethods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ticketsAndEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "refundPolicy": {
+          "type": "string"
+        },
+        "resale": {
+          "type": "string"
+        },
+        "entryRules": {
+          "type": "string"
+        }
+      }
+    },
+    "parking": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "general": {
+          "type": "string"
+        },
+        "raheenCollege": {
+          "type": "string"
+        },
+        "accessibilityParking": {
+          "type": "string"
+        }
+      }
+    },
+    "transportation": {
+      "$ref": "#/$defs/transportation"
+    },
+    "rulesAndConduct": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "contact": {
+      "$ref": "#/$defs/contact"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/link"
+      }
+    }
+  },
+  "$defs": {
+    "scheduleEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "stage",
+        "artist"
+      ],
+      "properties": {
+        "time": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artist": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scheduleDay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "date",
+        "label",
+        "entries"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "theme": {
+          "type": "string"
+        },
+        "gatesOpen": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/scheduleEntry"
+          }
+        }
+      }
+    },
+    "wellnessArea": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "hours": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "labeledText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "text"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "transportation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "taxis": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "contacts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/labeledText"
+              }
+            }
+          }
+        },
+        "buses": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "provider": {
+              "type": "string"
+            },
+            "operatingHours": {
+              "type": "string"
+            },
+            "closestStops": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "routes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "lastServices": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/labeledText"
+              }
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "url"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

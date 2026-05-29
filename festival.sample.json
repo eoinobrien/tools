@@ -1,0 +1,315 @@
+{
+  "festival": {
+    "name": "When Next We Meet",
+    "tagline": "Three days of music, wellness, and community in Clonmel.",
+    "description": "When Next We Meet is a three-day festival in Clonmel featuring live music across multiple stages, wellness sessions, practical visitor support, and late-night after parties.",
+    "dates": {
+      "start": "2026-05-29",
+      "end": "2026-05-31",
+      "displayText": "29–31 May 2026"
+    },
+    "location": {
+      "city": "Clonmel",
+      "country": "Ireland"
+    },
+    "websiteUrl": "https://www.whennextwemeet.ie",
+    "highlights": [
+      "Soft Launch opening night on Friday",
+      "Root & Rise wellness sessions on Saturday and Sunday",
+      "Main Stage, Hidden Gems Stage, and after party programming"
+    ]
+  },
+  "schedule": [
+    {
+      "date": "2026-05-29",
+      "label": "Friday 29 May",
+      "theme": "Soft Launch",
+      "gatesOpen": "6:30 PM",
+      "entries": [
+        {
+          "time": "7:00 PM",
+          "stage": "Main Stage",
+          "artist": "Clonmel Community Choir & House Band"
+        },
+        {
+          "time": "7:45 PM",
+          "stage": "Main Stage",
+          "artist": "Jo Blonde"
+        },
+        {
+          "time": "8:45 PM",
+          "stage": "Main Stage",
+          "artist": "Sun Merchant"
+        },
+        {
+          "time": "9:30 PM",
+          "stage": "Main Stage",
+          "artist": "BABYRAT"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-30",
+      "label": "Saturday 30 May",
+      "gatesOpen": "3:00 PM",
+      "notes": [
+        "Root & Rise wellness runs from 1:00 PM to 4:00 PM."
+      ],
+      "entries": [
+        {
+          "time": "3:00 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "DJ LORCAN RYAN"
+        },
+        {
+          "time": "4:30 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "Peadar Bradshaw Band"
+        },
+        {
+          "time": "5:30 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "In Lieu of Flowers"
+        },
+        {
+          "time": "6:00 PM",
+          "stage": "Main Stage",
+          "artist": "Eve Whelan"
+        },
+        {
+          "time": "6:30 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "The Last Party"
+        },
+        {
+          "time": "7:00 PM",
+          "stage": "Main Stage",
+          "artist": "Róisín El Cherif"
+        },
+        {
+          "time": "7:45 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "Noah Hayes"
+        },
+        {
+          "time": "8:15 PM",
+          "stage": "Main Stage",
+          "artist": "The Wran"
+        },
+        {
+          "time": "9:30 PM",
+          "stage": "Main Stage",
+          "artist": "Mick Flannery & Susan O’Neill"
+        },
+        {
+          "time": "11:00 PM",
+          "stage": "The After Party",
+          "artist": "DJ PIQUÉ"
+        }
+      ]
+    },
+    {
+      "date": "2026-05-31",
+      "label": "Sunday 31 May",
+      "gatesOpen": "3:00 PM",
+      "notes": [
+        "Root & Rise wellness runs from 1:00 PM to 4:00 PM."
+      ],
+      "entries": [
+        {
+          "time": "3:00 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "DJ LORCAN RYAN"
+        },
+        {
+          "time": "4:10 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "Ruairí de Leastar"
+        },
+        {
+          "time": "5:00 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "Cáit Ní Riain"
+        },
+        {
+          "time": "5:30 PM",
+          "stage": "Main Stage",
+          "artist": "MDR"
+        },
+        {
+          "time": "6:00 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "Charcoal Greys"
+        },
+        {
+          "time": "6:30 PM",
+          "stage": "Main Stage",
+          "artist": "Jukebox Gypsy"
+        },
+        {
+          "time": "7:15 PM",
+          "stage": "Hidden Gems Stage",
+          "artist": "Ae Mak"
+        },
+        {
+          "time": "7:45 PM",
+          "stage": "Main Stage",
+          "artist": "MOXIE"
+        },
+        {
+          "time": "9:00 PM",
+          "stage": "Main Stage",
+          "artist": "The Waterboys"
+        },
+        {
+          "time": "11:00 PM",
+          "stage": "The After Party",
+          "artist": "DJ PIQUÉ"
+        }
+      ]
+    }
+  ],
+  "wellnessArea": {
+    "name": "Root & Rise",
+    "hours": "1:00 PM - 4:00 PM (Saturday & Sunday)",
+    "activities": [
+      "Yoga",
+      "Breathwork",
+      "Oracle card readings",
+      "Quiet space away from festival crowds"
+    ],
+    "notes": "Add-on tickets should be purchased in advance to guarantee entry. Limited availability on the door."
+  },
+  "weatherAndGear": {
+    "recommendations": [
+      "Check the forecast before travelling.",
+      "Bring suncream, sunglasses, raincoats, and layers.",
+      "Wear comfortable sturdy footwear for uneven ground.",
+      "Blankets are welcome for hay bales, lawns, or wrapping up."
+    ]
+  },
+  "seatingAndAccessibility": {
+    "restrictions": "Camping chairs are not permitted within the festival arena due to crowd safety, emergency access, and venue protection.",
+    "amenities": "Seating and rest areas including benches and hay bale seating are available across the site but not guaranteed.",
+    "accessibilityAccommodations": "Attendees requiring additional accessibility accommodations should contact organizers in advance with their ticket order number."
+  },
+  "ageRestrictions": {
+    "days": [
+      {
+        "label": "Friday",
+        "text": "Open to ages 16+."
+      },
+      {
+        "label": "Saturday",
+        "text": "Strictly over 18s."
+      },
+      {
+        "label": "Sunday",
+        "text": "Strictly over 18s."
+      }
+    ],
+    "exceptions": "Babes-in-arms without prams and rare exceptions may be considered in very limited circumstances at the organizers' discretion."
+  },
+  "paymentsOnSite": {
+    "acceptedMethods": [
+      "Card",
+      "Cash",
+      "Revolut"
+    ]
+  },
+  "ticketsAndEntry": {
+    "refundPolicy": "Tickets are non-refundable.",
+    "resale": "Organizers can help facilitate resales if a ticket type is sold out. Private resales are also permitted.",
+    "entryRules": "Have your ticket ready for scanning on arrival. Tickets are valid for one entry wristband, and re-entry is permitted with an intact wristband."
+  },
+  "parking": {
+    "general": "Carpooling or public transport is encouraged. Ample free and street parking is available in Clonmel Town Centre a short walk away.",
+    "raheenCollege": "Free parking is available directly beside the venue at Raheen College. Follow festival signage and note that it is locked overnight.",
+    "accessibilityParking": "On-site parking is reserved for attendees with accessibility requirements and should be flagged in advance by email."
+  },
+  "transportation": {
+    "taxis": {
+      "note": "Taxis in Clonmel are scarce, especially late at night, so journeys home should be organized in advance.",
+      "contacts": [
+        {
+          "label": "PJ Cabs",
+          "text": "086 737 7960"
+        },
+        {
+          "label": "Smiths",
+          "text": "086 052 9500"
+        },
+        {
+          "label": "Pollard Cabs",
+          "text": "087 222 7222"
+        },
+        {
+          "label": "Amber Cabs",
+          "text": "087 904 0244"
+        },
+        {
+          "label": "TJ Cabs",
+          "text": "085 769 7692"
+        },
+        {
+          "label": "Forde Cabs",
+          "text": "087 057 1833"
+        }
+      ]
+    },
+    "buses": {
+      "provider": "TFI Town Buses",
+      "operatingHours": "Runs until just before midnight.",
+      "closestStops": [
+        "Parnell St (6 min walk)",
+        "Clonmel Showgrounds (9 min walk)"
+      ],
+      "routes": [
+        "CL1",
+        "CL2",
+        "CL9"
+      ],
+      "lastServices": [
+        {
+          "label": "CL9 towards Crann Ard from Parnell St",
+          "text": "23:46"
+        },
+        {
+          "label": "CL9 towards Crann Ard from Showgrounds",
+          "text": "23:47"
+        },
+        {
+          "label": "CL9 towards Ard Gaoithe from Showgrounds",
+          "text": "23:42"
+        },
+        {
+          "label": "CL9 towards Ard Gaoithe from Parnell St",
+          "text": "23:43"
+        }
+      ]
+    }
+  },
+  "rulesAndConduct": [
+    "Respect neighbours when arriving and leaving festival grounds.",
+    "Mind your belongings and leave valuables at home.",
+    "Stay hydrated and pace yourselves.",
+    "Be sound, be kind to staff and volunteers, and enjoy yourselves."
+  ],
+  "contact": {
+    "email": "hello@whennextwemeet.ie"
+  },
+  "links": [
+    {
+      "label": "Official website",
+      "url": "https://www.whennextwemeet.ie"
+    },
+    {
+      "label": "Instagram updates",
+      "url": "https://www.instagram.com/whennextwe_meet/"
+    },
+    {
+      "label": "Tickets",
+      "url": "https://www.eventbrite.ie/e/when-next-we-meet-2026-clonmel-tickets-1978155493331"
+    }
+  ]
+}
