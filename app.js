@@ -148,13 +148,13 @@ const createCalendarHref = (festival, schedule = []) => {
     }
 
     return datedEntries
-      .map((entry) => {
+      .map((entry, index) => {
         const nextStartMinutes = nextLaterByStart.get(entry.startsAtMinutes);
         const startsAt = createFestivalDateTime(day.date, entry.startsAtMinutes);
-        const endsAt = createFestivalDateTime(
-          day.date,
-          Number.isFinite(nextStartMinutes) ? nextStartMinutes : entry.startsAtMinutes + DEFAULT_EVENT_DURATION_MINUTES
-        );
+        const endMinutes = Number.isFinite(nextStartMinutes)
+          ? nextStartMinutes
+          : entry.startsAtMinutes + DEFAULT_EVENT_DURATION_MINUTES;
+        const endsAt = createFestivalDateTime(day.date, endMinutes);
 
         if (!startsAt || !endsAt) {
           return "";
@@ -170,7 +170,7 @@ const createCalendarHref = (festival, schedule = []) => {
         ]
           .filter(Boolean)
           .join("\n");
-        const uid = `${slugify(festival.name)}-${day.date}-${entry.startsAtMinutes}-${slugify(entry.stage)}-${slugify(entry.artist)}@${uidHost}`;
+        const uid = `${slugify(festival.name)}-${day.date}-${entry.startsAtMinutes}-${index}-${slugify(entry.stage)}-${slugify(entry.artist)}@${uidHost}`;
 
         return [
           "BEGIN:VEVENT",
@@ -197,7 +197,7 @@ const createCalendarHref = (festival, schedule = []) => {
   const calendar = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//eoinobrien/tools//Festival Schedule//EN",
+    "PRODID:-//eoinobrien//Festival Schedule//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     foldIcsLine(`X-WR-CALNAME:${escapeIcsText(`${festival.name} schedule`)}`),
