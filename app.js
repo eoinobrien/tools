@@ -220,7 +220,10 @@ const createSection = (title, content, extraClass = "") => {
 };
 
 const getStageClass = (stage = "") => {
-  const s = stage.toLowerCase();
+  const s = stage.toLowerCase().trim();
+  if (s === "main stage") return "stage-main";
+  if (s === "hidden gems stage") return "stage-hidden";
+  if (s === "the after party") return "stage-after";
   if (s.includes("main")) return "stage-main";
   if (s.includes("hidden") || s.includes("gem")) return "stage-hidden";
   if (s.includes("after") || s.includes("party")) return "stage-after";
