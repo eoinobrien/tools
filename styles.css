@@ -1,26 +1,27 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;500;600;700;800&display=swap");
 
 :root {
   color-scheme: light;
-  --bg: #f5efe2;
-  --surface: #ffffff;
-  --surface-alt: #fff9ee;
-  --text: #252839;
-  --muted: #6a6d7c;
-  --accent: #ff8a18;
-  --accent-dark: #d46b00;
-  --accent-yellow: #fce672;
-  --border: #e5ddd0;
-  --shadow: 0 8px 32px rgba(37, 40, 57, 0.09);
+  --bg: #f4ecdc;
+  --surface: #fff7e9;
+  --surface-alt: #f7eddb;
+  --text: #1f4934;
+  --muted: #45614f;
+  --accent: #f26a3d;
+  --accent-dark: #be4325;
+  --accent-yellow: #f4d449;
+  --accent-blue: #6ec3f4;
+  --border: #1f4934;
+  --shadow: 0 10px 28px rgba(31, 73, 52, 0.14);
 
-  --stage-main: #ff8a18;
+  --stage-main: #f26a3d;
   --stage-main-text: #ffffff;
-  --stage-hidden: #fce672;
-  --stage-hidden-text: #252839;
-  --stage-party: #252839;
-  --stage-party-text: #fce672;
+  --stage-hidden: #f4d449;
+  --stage-hidden-text: #1f4934;
+  --stage-party: #6ec3f4;
+  --stage-party-text: #1f4934;
 
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -54,6 +55,7 @@ a {
   overflow: hidden;
   border-radius: 24px;
   background: var(--surface);
+  border: 2px solid var(--border);
   box-shadow: var(--shadow);
   margin-bottom: 1.5rem;
 }
@@ -72,10 +74,10 @@ a {
 .eyebrow {
   margin: 0 0 0.5rem;
   color: var(--accent);
+  font-family: "Caveat", cursive;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  font-size: 1.35rem;
 }
 
 h1,
@@ -97,7 +99,7 @@ h2 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--accent);
+  color: var(--text);
 }
 
 .meta {
@@ -111,9 +113,9 @@ h2 {
   padding: 0.4rem 0.75rem;
   border-radius: 999px;
   background: var(--surface-alt);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .grid {
@@ -125,7 +127,7 @@ h2 {
 .card {
   background: var(--surface);
   border-radius: 20px;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   box-shadow: var(--shadow);
   padding: 1.5rem;
 }
@@ -175,6 +177,7 @@ h2 {
   font-size: 0.9rem;
   text-decoration: none;
   letter-spacing: 0.01em;
+  border: 2px solid var(--accent-dark);
 }
 
 .button-link:hover,
@@ -225,8 +228,8 @@ h2 {
 .day-theme {
   padding: 0.2rem 0.65rem;
   border-radius: 999px;
-  background: var(--accent);
-  color: #fff;
+  background: var(--accent-yellow);
+  color: var(--text);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.03em;
@@ -235,6 +238,11 @@ h2 {
 .day-body {
   padding: 0.75rem 1.25rem 1rem;
   background: var(--surface);
+}
+
+.row a:not(.button-link) {
+  font-weight: 700;
+  text-decoration-thickness: 2px;
 }
 
 .day-meta {
@@ -299,4 +307,3 @@ h2 {
   background: var(--stage-party);
   color: var(--stage-party-text);
 }
-
