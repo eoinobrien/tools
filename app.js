@@ -5,26 +5,6 @@ const textEncoder = new TextEncoder();
 
 const DEFAULT_EVENT_DURATION_MINUTES = 60;
 const FESTIVAL_TIME_ZONE = "Europe/Dublin";
-const FESTIVAL_TIME_ZONE_BLOCK = [
-  "BEGIN:VTIMEZONE",
-  `TZID:${FESTIVAL_TIME_ZONE}`,
-  "X-LIC-LOCATION:Europe/Dublin",
-  "BEGIN:DAYLIGHT",
-  "TZOFFSETFROM:+0000",
-  "TZOFFSETTO:+0100",
-  "TZNAME:IST",
-  "DTSTART:19700329T010000",
-  "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU",
-  "END:DAYLIGHT",
-  "BEGIN:STANDARD",
-  "TZOFFSETFROM:+0100",
-  "TZOFFSETTO:+0000",
-  "TZNAME:GMT",
-  "DTSTART:19701025T020000",
-  "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU",
-  "END:STANDARD",
-  "END:VTIMEZONE"
-].join("\r\n");
 
 const setCalendarDownloadUrl = (nextUrl) => {
   if (calendarDownloadUrl) {
@@ -72,7 +52,7 @@ const foldIcsLine = (line = "") => {
   return chunks.join("\r\n");
 };
 
-const formatIcsDateTime = (value) => {
+const formatDateTimeParts = (value) => {
   const year = value.getUTCFullYear();
   const month = String(value.getUTCMonth() + 1).padStart(2, "0");
   const day = String(value.getUTCDate()).padStart(2, "0");
@@ -82,15 +62,8 @@ const formatIcsDateTime = (value) => {
   return `${year}${month}${day}T${hours}${minutes}${seconds}`;
 };
 
-const formatUtcStamp = (value) => {
-  const year = value.getUTCFullYear();
-  const month = String(value.getUTCMonth() + 1).padStart(2, "0");
-  const day = String(value.getUTCDate()).padStart(2, "0");
-  const hours = String(value.getUTCHours()).padStart(2, "0");
-  const minutes = String(value.getUTCMinutes()).padStart(2, "0");
-  const seconds = String(value.getUTCSeconds()).padStart(2, "0");
-  return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
-};
+const formatIcsDateTime = (value) => formatDateTimeParts(value);
+const formatUtcStamp = (value) => `${formatDateTimeParts(value)}Z`;
 
 const parseTimeToMinutes = (time) => {
   const match = time?.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
@@ -229,7 +202,6 @@ const createCalendarHref = (festival, schedule = []) => {
     "METHOD:PUBLISH",
     foldIcsLine(`X-WR-CALNAME:${escapeIcsText(`${festival.name} schedule`)}`),
     `X-WR-TIMEZONE:${FESTIVAL_TIME_ZONE}`,
-    FESTIVAL_TIME_ZONE_BLOCK,
     ...events,
     "END:VCALENDAR"
   ].join("\r\n");
