@@ -31,6 +31,8 @@ const createParagraph = (text, className = "") => {
   return p;
 };
 
+const createBulletList = (items = []) => createList(items, (item) => createParagraph(item));
+
 const createLink = (label, url) => {
   const a = document.createElement("a");
   a.href = url;
@@ -40,17 +42,18 @@ const createLink = (label, url) => {
   return a;
 };
 
+const createLabeledList = (items = []) =>
+  createList(items, (item) => {
+    const wrapper = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = item.label;
+    wrapper.append(title, createParagraph(item.text, "muted"));
+    return wrapper;
+  });
+
 const renderHero = (festival) => {
   const hero = document.createElement("section");
   hero.className = "hero";
-
-  if (festival.heroImage?.url) {
-    const image = document.createElement("img");
-    image.className = "hero-image";
-    image.src = festival.heroImage.url;
-    image.alt = festival.heroImage.alt || festival.name;
-    hero.append(image);
-  }
 
   const content = document.createElement("div");
   content.className = "hero-content";
@@ -71,28 +74,14 @@ const renderHero = (festival) => {
   const meta = document.createElement("div");
   meta.className = "meta";
 
-  const dateLabel = festival.dates?.displayText || [festival.dates?.start, festival.dates?.end].filter(Boolean).join(" to ");
-  if (dateLabel) {
-    const pill = document.createElement("span");
-    pill.className = "pill";
-    pill.textContent = dateLabel;
-    meta.append(pill);
-  }
-
-  const locationLabel = [festival.location?.venue, festival.location?.city, festival.location?.country].filter(Boolean).join(", ");
-  if (locationLabel) {
-    const pill = document.createElement("span");
-    pill.className = "pill";
-    pill.textContent = locationLabel;
-    meta.append(pill);
-  }
-
-  if (festival.genres?.length) {
-    const pill = document.createElement("span");
-    pill.className = "pill";
-    pill.textContent = festival.genres.join(" • ");
-    meta.append(pill);
-  }
+  [festival.dates?.displayText, [festival.location?.venue, festival.location?.city, festival.location?.country].filter(Boolean).join(", ")]
+    .filter(Boolean)
+    .forEach((text) => {
+      const pill = document.createElement("span");
+      pill.className = "pill";
+      pill.textContent = text;
+      meta.append(pill);
+    });
 
   if (meta.children.length) {
     content.append(meta);
@@ -100,18 +89,10 @@ const renderHero = (festival) => {
 
   content.append(createParagraph(festival.description));
 
-  const linksRow = document.createElement("div");
-  linksRow.className = "row";
-
   if (festival.websiteUrl) {
+    const linksRow = document.createElement("div");
+    linksRow.className = "row";
     linksRow.append(createLink("Official website", festival.websiteUrl));
-  }
-
-  if (festival.location?.mapsUrl) {
-    linksRow.append(createLink("View map", festival.location.mapsUrl));
-  }
-
-  if (linksRow.children.length) {
     content.append(linksRow);
   }
 
@@ -124,62 +105,7 @@ const renderHighlights = (festival) => {
     return null;
   }
 
-  return createSection(
-    "Highlights",
-    createList(festival.highlights, (item) => createParagraph(item))
-  );
-};
-
-const renderTickets = (tickets = []) => {
-  if (!tickets.length) {
-    return null;
-  }
-
-  return createSection(
-    "Tickets",
-    createList(tickets, (ticket) => {
-      const wrapper = document.createElement("div");
-      const title = document.createElement("h3");
-      title.textContent = `${ticket.name} · ${ticket.price}`;
-      wrapper.append(title, createParagraph(ticket.description, "muted"));
-
-      if (ticket.purchaseUrl) {
-        wrapper.append(createLink("Buy ticket", ticket.purchaseUrl));
-      }
-
-      return wrapper;
-    })
-  );
-};
-
-const renderLineup = (lineup = []) => {
-  if (!lineup.length) {
-    return null;
-  }
-
-  return createSection(
-    "Lineup",
-    createList(lineup, (performer) => {
-      const wrapper = document.createElement("div");
-      const title = document.createElement("h3");
-      title.textContent = performer.name;
-      wrapper.append(title);
-
-      if (performer.genre) {
-        wrapper.append(createParagraph(performer.genre, "muted"));
-      }
-
-      if (performer.description) {
-        wrapper.append(createParagraph(performer.description));
-      }
-
-      if (performer.websiteUrl) {
-        wrapper.append(createLink("Artist site", performer.websiteUrl));
-      }
-
-      return wrapper;
-    })
-  );
+  return createSection("Highlights", createBulletList(festival.highlights));
 };
 
 const renderSchedule = (schedule = []) => {
@@ -192,45 +118,187 @@ const renderSchedule = (schedule = []) => {
     createList(schedule, (day) => {
       const wrapper = document.createElement("div");
       const title = document.createElement("h3");
-      title.textContent = `${day.label} · ${day.date}`;
+      title.textContent = day.label;
       wrapper.append(title);
 
-      const entries = createList(day.entries || [], (entry) => {
-        const entryWrap = document.createElement("div");
-        const strong = document.createElement("strong");
-        strong.textContent = `${entry.time} — ${entry.artist}`;
-        entryWrap.append(strong, createParagraph(entry.stage, "muted"));
-        if (entry.notes) {
-          entryWrap.append(createParagraph(entry.notes));
-        }
-        return entryWrap;
-      });
+      if (day.theme) {
+        wrapper.append(createParagraph(day.theme, "muted"));
+      }
 
-      wrapper.append(entries);
+      if (day.gatesOpen) {
+        wrapper.append(createParagraph(`Gates open: ${day.gatesOpen}`));
+      }
+
+      if (day.notes?.length) {
+        wrapper.append(createBulletList(day.notes));
+      }
+
+      wrapper.append(
+        createList(day.entries || [], (entry) => {
+          const entryWrap = document.createElement("div");
+          const strong = document.createElement("strong");
+          strong.textContent = `${entry.time} — ${entry.artist}`;
+          entryWrap.append(strong, createParagraph(entry.stage, "muted"));
+          return entryWrap;
+        })
+      );
+
       return wrapper;
     })
   );
 };
 
-const renderFaq = (faq = []) => {
-  if (!faq.length) {
+const renderWellness = (wellnessArea) => {
+  if (!wellnessArea) {
+    return null;
+  }
+
+  const wrapper = document.createElement("div");
+
+  if (wellnessArea.name) {
+    const title = document.createElement("h3");
+    title.textContent = wellnessArea.name;
+    wrapper.append(title);
+  }
+
+  if (wellnessArea.hours) {
+    wrapper.append(createParagraph(wellnessArea.hours, "muted"));
+  }
+
+  if (wellnessArea.activities?.length) {
+    wrapper.append(createBulletList(wellnessArea.activities));
+  }
+
+  if (wellnessArea.notes) {
+    wrapper.append(createParagraph(wellnessArea.notes));
+  }
+
+  return createSection("Wellness area", wrapper);
+};
+
+const renderSimpleTextSection = (title, values = []) => {
+  const filteredValues = values.filter(Boolean);
+  if (!filteredValues.length) {
+    return null;
+  }
+
+  const wrapper = document.createElement("div");
+  filteredValues.forEach((value) => wrapper.append(createParagraph(value)));
+  return createSection(title, wrapper);
+};
+
+const renderAgeRestrictions = (ageRestrictions) => {
+  if (!ageRestrictions?.days?.length && !ageRestrictions?.exceptions) {
+    return null;
+  }
+
+  const wrapper = document.createElement("div");
+
+  if (ageRestrictions.days?.length) {
+    wrapper.append(createLabeledList(ageRestrictions.days));
+  }
+
+  if (ageRestrictions.exceptions) {
+    wrapper.append(createParagraph(ageRestrictions.exceptions));
+  }
+
+  return createSection("Age restrictions", wrapper);
+};
+
+const renderPayments = (paymentsOnSite) => {
+  if (!paymentsOnSite?.acceptedMethods?.length) {
     return null;
   }
 
   return createSection(
-    "FAQ",
-    createList(faq, (item) => {
-      const wrapper = document.createElement("div");
-      const title = document.createElement("h3");
-      title.textContent = item.question;
-      wrapper.append(title, createParagraph(item.answer));
-      return wrapper;
-    })
+    "Payments on site",
+    createParagraph(paymentsOnSite.acceptedMethods.join(" • "))
   );
 };
 
+const renderTicketsAndEntry = (ticketsAndEntry) => {
+  if (!ticketsAndEntry) {
+    return null;
+  }
+
+  return renderSimpleTextSection("Tickets & entry", [
+    ticketsAndEntry.refundPolicy,
+    ticketsAndEntry.resale,
+    ticketsAndEntry.entryRules
+  ]);
+};
+
+const renderParking = (parking) => {
+  if (!parking) {
+    return null;
+  }
+
+  return renderSimpleTextSection("Parking", [
+    parking.general,
+    parking.raheenCollege,
+    parking.accessibilityParking
+  ]);
+};
+
+const renderTransport = (transportation) => {
+  if (!transportation?.taxis && !transportation?.buses) {
+    return null;
+  }
+
+  const wrapper = document.createElement("div");
+
+  if (transportation.taxis) {
+    const title = document.createElement("h3");
+    title.textContent = "Taxis";
+    wrapper.append(title);
+
+    if (transportation.taxis.note) {
+      wrapper.append(createParagraph(transportation.taxis.note));
+    }
+
+    if (transportation.taxis.contacts?.length) {
+      wrapper.append(createLabeledList(transportation.taxis.contacts));
+    }
+  }
+
+  if (transportation.buses) {
+    const title = document.createElement("h3");
+    title.textContent = "Buses";
+    wrapper.append(title);
+
+    [
+      transportation.buses.provider,
+      transportation.buses.operatingHours
+    ]
+      .filter(Boolean)
+      .forEach((value, index) => wrapper.append(createParagraph(value, index === 0 ? "muted" : "")));
+
+    if (transportation.buses.routes?.length) {
+      wrapper.append(createParagraph(`Routes: ${transportation.buses.routes.join(", ")}`));
+    }
+
+    if (transportation.buses.closestStops?.length) {
+      wrapper.append(createParagraph(`Closest stops: ${transportation.buses.closestStops.join(" • ")}`));
+    }
+
+    if (transportation.buses.lastServices?.length) {
+      wrapper.append(createLabeledList(transportation.buses.lastServices));
+    }
+  }
+
+  return createSection("Getting home", wrapper);
+};
+
+const renderRules = (rulesAndConduct = []) => {
+  if (!rulesAndConduct.length) {
+    return null;
+  }
+
+  return createSection("Rules & conduct", createBulletList(rulesAndConduct));
+};
+
 const renderContact = (contact = {}, links = []) => {
-  if (!Object.keys(contact).length && !links.length) {
+  if (!contact.email && !links.length) {
     return null;
   }
 
@@ -245,22 +313,6 @@ const renderContact = (contact = {}, links = []) => {
     list.append(li);
   }
 
-  if (contact.phone) {
-    const li = document.createElement("li");
-    li.className = "list-item";
-    li.textContent = contact.phone;
-    list.append(li);
-  }
-
-  ["instagram", "facebook"].forEach((key) => {
-    if (contact[key]) {
-      const li = document.createElement("li");
-      li.className = "list-item";
-      li.append(createLink(key[0].toUpperCase() + key.slice(1), contact[key]));
-      list.append(li);
-    }
-  });
-
   links.forEach((link) => {
     const li = document.createElement("li");
     li.className = "list-item";
@@ -274,19 +326,27 @@ const renderContact = (contact = {}, links = []) => {
 
 const renderApp = (data) => {
   app.innerHTML = "";
-
-  const festival = data.festival;
-  app.append(renderHero(festival));
+  app.append(renderHero(data.festival));
 
   const grid = document.createElement("div");
   grid.className = "grid";
 
   [
-    renderHighlights(festival),
-    renderTickets(data.tickets),
-    renderLineup(data.lineup),
+    renderHighlights(data.festival),
     renderSchedule(data.schedule),
-    renderFaq(data.faq),
+    renderWellness(data.wellnessArea),
+    renderSimpleTextSection("Weather & gear", data.weatherAndGear?.recommendations),
+    renderSimpleTextSection("Seating & accessibility", [
+      data.seatingAndAccessibility?.restrictions,
+      data.seatingAndAccessibility?.amenities,
+      data.seatingAndAccessibility?.accessibilityAccommodations
+    ]),
+    renderAgeRestrictions(data.ageRestrictions),
+    renderPayments(data.paymentsOnSite),
+    renderTicketsAndEntry(data.ticketsAndEntry),
+    renderParking(data.parking),
+    renderTransport(data.transportation),
+    renderRules(data.rulesAndConduct),
     renderContact(data.contact, data.links)
   ]
     .filter(Boolean)

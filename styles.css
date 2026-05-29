@@ -135,6 +135,10 @@ p {
   gap: 0.5rem;
 }
 
+.section-body > *:last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 640px) {
   .hero-image {
     height: 220px;

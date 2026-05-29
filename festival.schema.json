@@ -5,7 +5,9 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "festival"
+    "festival",
+    "schedule",
+    "links"
   ],
   "properties": {
     "festival": {
@@ -34,7 +36,8 @@
           "additionalProperties": false,
           "required": [
             "start",
-            "end"
+            "end",
+            "displayText"
           ],
           "properties": {
             "start": {
@@ -46,7 +49,8 @@
               "format": "date"
             },
             "displayText": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1
             }
           }
         },
@@ -54,16 +58,11 @@
           "type": "object",
           "additionalProperties": false,
           "required": [
-            "venue",
             "city",
             "country"
           ],
           "properties": {
             "venue": {
-              "type": "string",
-              "minLength": 1
-            },
-            "address": {
               "type": "string"
             },
             "city": {
@@ -73,40 +72,12 @@
             "country": {
               "type": "string",
               "minLength": 1
-            },
-            "mapsUrl": {
-              "type": "string",
-              "format": "uri"
             }
           }
         },
         "websiteUrl": {
           "type": "string",
           "format": "uri"
-        },
-        "heroImage": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "url",
-            "alt"
-          ],
-          "properties": {
-            "url": {
-              "type": "string",
-              "format": "uri"
-            },
-            "alt": {
-              "type": "string",
-              "minLength": 1
-            }
-          }
-        },
-        "genres": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "highlights": {
           "type": "array",
@@ -116,28 +87,106 @@
         }
       }
     },
-    "tickets": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/ticket"
-      }
-    },
-    "lineup": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/performer"
-      }
-    },
     "schedule": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/scheduleDay"
       }
     },
-    "faq": {
+    "wellnessArea": {
+      "$ref": "#/$defs/wellnessArea"
+    },
+    "weatherAndGear": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "seatingAndAccessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "restrictions": {
+          "type": "string"
+        },
+        "amenities": {
+          "type": "string"
+        },
+        "accessibilityAccommodations": {
+          "type": "string"
+        }
+      }
+    },
+    "ageRestrictions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "days": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/labeledText"
+          }
+        },
+        "exceptions": {
+          "type": "string"
+        }
+      }
+    },
+    "paymentsOnSite": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "acceptedMethods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ticketsAndEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "refundPolicy": {
+          "type": "string"
+        },
+        "resale": {
+          "type": "string"
+        },
+        "entryRules": {
+          "type": "string"
+        }
+      }
+    },
+    "parking": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "general": {
+          "type": "string"
+        },
+        "raheenCollege": {
+          "type": "string"
+        },
+        "accessibilityParking": {
+          "type": "string"
+        }
+      }
+    },
+    "transportation": {
+      "$ref": "#/$defs/transportation"
+    },
+    "rulesAndConduct": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/faqItem"
+        "type": "string"
       }
     },
     "contact": {
@@ -151,70 +200,16 @@
     }
   },
   "$defs": {
-    "ticket": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "name",
-        "price",
-        "description"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "minLength": 1
-        },
-        "price": {
-          "type": "string",
-          "minLength": 1
-        },
-        "description": {
-          "type": "string",
-          "minLength": 1
-        },
-        "purchaseUrl": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
-    "performer": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "name"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "minLength": 1
-        },
-        "genre": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "websiteUrl": {
-          "type": "string",
-          "format": "uri"
-        }
-      }
-    },
     "scheduleEntry": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "time",
-        "artist",
-        "stage"
+        "stage",
+        "artist"
       ],
       "properties": {
         "time": {
-          "type": "string",
-          "minLength": 1
-        },
-        "artist": {
           "type": "string",
           "minLength": 1
         },
@@ -222,8 +217,9 @@
           "type": "string",
           "minLength": 1
         },
-        "notes": {
-          "type": "string"
+        "artist": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -244,6 +240,18 @@
           "type": "string",
           "minLength": 1
         },
+        "theme": {
+          "type": "string"
+        },
+        "gatesOpen": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "entries": {
           "type": "array",
           "items": {
@@ -252,21 +260,93 @@
         }
       }
     },
-    "faqItem": {
+    "wellnessArea": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "hours": {
+          "type": "string"
+        },
+        "activities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "labeledText": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "question",
-        "answer"
+        "label",
+        "text"
       ],
       "properties": {
-        "question": {
+        "label": {
           "type": "string",
           "minLength": 1
         },
-        "answer": {
+        "text": {
           "type": "string",
           "minLength": 1
+        }
+      }
+    },
+    "transportation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "taxis": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "contacts": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/labeledText"
+              }
+            }
+          }
+        },
+        "buses": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "provider": {
+              "type": "string"
+            },
+            "operatingHours": {
+              "type": "string"
+            },
+            "closestStops": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "routes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "lastServices": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/labeledText"
+              }
+            }
+          }
         }
       }
     },
@@ -277,17 +357,6 @@
         "email": {
           "type": "string",
           "format": "email"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "instagram": {
-          "type": "string",
-          "format": "uri"
-        },
-        "facebook": {
-          "type": "string",
-          "format": "uri"
         }
       }
     },
