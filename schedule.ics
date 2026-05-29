@@ -1,0 +1,316 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//eoinobrien//Festival Schedule//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:When Next We Meet schedule
+X-WR-TIMEZONE:Europe/Dublin
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-29-1140-0-main-stage-clonmel-community-choir-house-band@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Clonmel Community Choir & House Band
+DTSTART;TZID=Europe/Dublin:20260529T190000
+DTEND;TZID=Europe/Dublin:20260529T194500
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nTheme: Soft Launch
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-29-1185-1-main-stage-jo-blonde@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Jo Blonde
+DTSTART;TZID=Europe/Dublin:20260529T194500
+DTEND;TZID=Europe/Dublin:20260529T204500
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nTheme: Soft Launch
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-29-1245-2-main-stage-sun-merchant@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Sun Merchant
+DTSTART;TZID=Europe/Dublin:20260529T204500
+DTEND;TZID=Europe/Dublin:20260529T213000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nTheme: Soft Launch
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-29-1290-3-main-stage-babyrat@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:BABYRAT
+DTSTART;TZID=Europe/Dublin:20260529T213000
+DTEND;TZID=Europe/Dublin:20260529T223000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nTheme: Soft Launch
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-900-0-hidden-gems-stage-dj-lorcan-ryan@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:DJ LORCAN RYAN
+DTSTART;TZID=Europe/Dublin:20260530T150000
+DTEND;TZID=Europe/Dublin:20260530T163000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-990-1-hidden-gems-stage-peadar-bradshaw-band@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Peadar Bradshaw Band
+DTSTART;TZID=Europe/Dublin:20260530T163000
+DTEND;TZID=Europe/Dublin:20260530T173000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1050-2-hidden-gems-stage-in-lieu-of-flowers@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:In Lieu of Flowers
+DTSTART;TZID=Europe/Dublin:20260530T173000
+DTEND;TZID=Europe/Dublin:20260530T180000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1080-3-main-stage-eve-whelan@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Eve Whelan
+DTSTART;TZID=Europe/Dublin:20260530T180000
+DTEND;TZID=Europe/Dublin:20260530T183000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1110-4-hidden-gems-stage-the-last-party@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:The Last Party
+DTSTART;TZID=Europe/Dublin:20260530T183000
+DTEND;TZID=Europe/Dublin:20260530T190000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1140-5-main-stage-roisin-el-cherif@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Róisín El Cherif
+DTSTART;TZID=Europe/Dublin:20260530T190000
+DTEND;TZID=Europe/Dublin:20260530T194500
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1185-6-hidden-gems-stage-noah-hayes@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Noah Hayes
+DTSTART;TZID=Europe/Dublin:20260530T194500
+DTEND;TZID=Europe/Dublin:20260530T201500
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1215-7-main-stage-the-wran@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:The Wran
+DTSTART;TZID=Europe/Dublin:20260530T201500
+DTEND;TZID=Europe/Dublin:20260530T213000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1290-8-main-stage-mick-flannery-susan-o-neill@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Mick Flannery & Susan O’Neill
+DTSTART;TZID=Europe/Dublin:20260530T213000
+DTEND;TZID=Europe/Dublin:20260530T230000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-30-1380-9-the-after-party-dj-pique@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:DJ PIQUÉ
+DTSTART;TZID=Europe/Dublin:20260530T230000
+DTEND;TZID=Europe/Dublin:20260531T000000
+LOCATION:The After Party\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-900-0-hidden-gems-stage-dj-lorcan-ryan@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:DJ LORCAN RYAN
+DTSTART;TZID=Europe/Dublin:20260531T150000
+DTEND;TZID=Europe/Dublin:20260531T161000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-970-1-hidden-gems-stage-ruairi-de-leastar@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Ruairí de Leastar
+DTSTART;TZID=Europe/Dublin:20260531T161000
+DTEND;TZID=Europe/Dublin:20260531T170000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1020-2-hidden-gems-stage-cait-ni-riain@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Cáit Ní Riain
+DTSTART;TZID=Europe/Dublin:20260531T170000
+DTEND;TZID=Europe/Dublin:20260531T173000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1050-3-main-stage-mdr@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:MDR
+DTSTART;TZID=Europe/Dublin:20260531T173000
+DTEND;TZID=Europe/Dublin:20260531T180000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1080-4-hidden-gems-stage-charcoal-greys@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Charcoal Greys
+DTSTART;TZID=Europe/Dublin:20260531T180000
+DTEND;TZID=Europe/Dublin:20260531T183000
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1110-5-main-stage-jukebox-gypsy@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Jukebox Gypsy
+DTSTART;TZID=Europe/Dublin:20260531T183000
+DTEND;TZID=Europe/Dublin:20260531T191500
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1155-6-hidden-gems-stage-ae-mak@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:Ae Mak
+DTSTART;TZID=Europe/Dublin:20260531T191500
+DTEND;TZID=Europe/Dublin:20260531T194500
+LOCATION:Hidden Gems Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1185-7-main-stage-moxie@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:MOXIE
+DTSTART;TZID=Europe/Dublin:20260531T194500
+DTEND;TZID=Europe/Dublin:20260531T210000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1260-8-main-stage-the-waterboys@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:The Waterboys
+DTSTART;TZID=Europe/Dublin:20260531T210000
+DTEND;TZID=Europe/Dublin:20260531T230000
+LOCATION:Main Stage\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+BEGIN:VEVENT
+UID:when-next-we-meet-2026-05-31-1380-9-the-after-party-dj-pique@www.whennextwemeet.ie
+DTSTAMP:20260529T172924Z
+SUMMARY:DJ PIQUÉ
+DTSTART;TZID=Europe/Dublin:20260531T230000
+DTEND;TZID=Europe/Dublin:20260601T000000
+LOCATION:The After Party\, Clonmel\, Ireland
+DESCRIPTION:When Next We Meet is a three-day festival in Clonmel featuring 
+ live music across multiple stages\, wellness sessions\, practical visitor 
+ support\, and late-night after parties.\nNotes: Root & Rise wellness runs 
+ from 1:00 PM to 4:00 PM.
+URL:https://www.whennextwemeet.ie
+END:VEVENT
+END:VCALENDAR

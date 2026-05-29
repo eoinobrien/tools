@@ -552,9 +552,17 @@ const renderApp = (data) => {
   if (calendarHref) {
     const linksRow = heroLinks || document.createElement("div");
     linksRow.className = "row";
+
+    const subscribeUrl = new URL("./schedule.ics", window.location.href);
+    const subscribeLink = document.createElement("a");
+    subscribeLink.href = `webcal://${subscribeUrl.host}${subscribeUrl.pathname}`;
+    subscribeLink.textContent = "Subscribe to calendar";
+    subscribeLink.className = "button-link";
+    linksRow.append(subscribeLink);
+
     linksRow.append(
       createDownloadLink(
-        "Add schedule to calendar (.ics)",
+        "Download schedule (.ics)",
         calendarHref,
         `${slugify(data.festival.name)}-schedule.ics`
       )
