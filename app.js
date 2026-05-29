@@ -1,6 +1,7 @@
 const app = document.querySelector("#app");
 const sectionTemplate = document.querySelector("#section-template");
 let calendarDownloadUrl = "";
+const textEncoder = new TextEncoder();
 
 const DEFAULT_EVENT_DURATION_MINUTES = 60;
 const FESTIVAL_TIME_ZONE = "Europe/Dublin";
@@ -41,13 +42,31 @@ const escapeIcsText = (value = "") =>
     .replace(/,/g, "\\,");
 
 const foldIcsLine = (line = "") => {
-  if (line.length <= 75) {
+  if (textEncoder.encode(line).length <= 75) {
     return line;
   }
 
   const chunks = [];
-  for (let index = 0; index < line.length; index += 75) {
-    chunks.push(index === 0 ? line.slice(index, index + 75) : ` ${line.slice(index, index + 75)}`);
+  let chunk = "";
+  let chunkLength = 0;
+
+  for (const character of line) {
+    const characterLength = textEncoder.encode(character).length;
+    const nextLength = chunkLength + characterLength;
+
+    if (nextLength > 75) {
+      chunks.push(chunk);
+      chunk = ` ${character}`;
+      chunkLength = 1 + characterLength;
+      continue;
+    }
+
+    chunk += character;
+    chunkLength = nextLength;
+  }
+
+  if (chunk) {
+    chunks.push(chunk);
   }
 
   return chunks.join("\r\n");
@@ -86,11 +105,11 @@ const withTime = (date, time) => {
   const minutes = Number(match[2]);
   const meridiem = match[3].toUpperCase();
 
-  if (hours === 12) {
+  if (meridiem === "AM" && hours === 12) {
     hours = 0;
   }
 
-  if (meridiem === "PM") {
+  if (meridiem === "PM" && hours !== 12) {
     hours += 12;
   }
 
