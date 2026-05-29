@@ -159,14 +159,28 @@ const createCalendarHref = (festival, schedule = []) => {
       }))
       .filter((entry) => Number.isFinite(entry.startsAtMinutes))
       .sort((left, right) => left.startsAtMinutes - right.startsAtMinutes);
+    const nextLaterByStart = new Map();
+    let lastSeenStart = null;
+
+    for (let index = datedEntries.length - 1; index >= 0; index -= 1) {
+      const { startsAtMinutes } = datedEntries[index];
+
+      if (!nextLaterByStart.has(startsAtMinutes)) {
+        nextLaterByStart.set(startsAtMinutes, lastSeenStart);
+      }
+
+      if (startsAtMinutes !== lastSeenStart) {
+        lastSeenStart = startsAtMinutes;
+      }
+    }
 
     return datedEntries
       .map((entry) => {
-        const nextEntry = datedEntries.find((candidate) => candidate.startsAtMinutes > entry.startsAtMinutes);
+        const nextStartMinutes = nextLaterByStart.get(entry.startsAtMinutes);
         const startsAt = createFestivalDateTime(day.date, entry.startsAtMinutes);
         const endsAt = createFestivalDateTime(
           day.date,
-          nextEntry ? nextEntry.startsAtMinutes : entry.startsAtMinutes + DEFAULT_EVENT_DURATION_MINUTES
+          Number.isFinite(nextStartMinutes) ? nextStartMinutes : entry.startsAtMinutes + DEFAULT_EVENT_DURATION_MINUTES
         );
 
         if (!startsAt || !endsAt) {
@@ -183,7 +197,7 @@ const createCalendarHref = (festival, schedule = []) => {
         ]
           .filter(Boolean)
           .join("\n");
-        const uid = `${slugify(festival.name)}-${day.date}-${slugify(entry.stage)}-${slugify(entry.artist)}@${uidHost}`;
+        const uid = `${slugify(festival.name)}-${day.date}-${entry.startsAtMinutes}-${slugify(entry.stage)}-${slugify(entry.artist)}@${uidHost}`;
 
         return [
           "BEGIN:VEVENT",
