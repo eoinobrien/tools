@@ -73,12 +73,12 @@ const foldIcsLine = (line = "") => {
 };
 
 const formatIcsDateTime = (value) => {
-  const year = value.getFullYear();
-  const month = String(value.getMonth() + 1).padStart(2, "0");
-  const day = String(value.getDate()).padStart(2, "0");
-  const hours = String(value.getHours()).padStart(2, "0");
-  const minutes = String(value.getMinutes()).padStart(2, "0");
-  const seconds = String(value.getSeconds()).padStart(2, "0");
+  const year = value.getUTCFullYear();
+  const month = String(value.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(value.getUTCDate()).padStart(2, "0");
+  const hours = String(value.getUTCHours()).padStart(2, "0");
+  const minutes = String(value.getUTCMinutes()).padStart(2, "0");
+  const seconds = String(value.getUTCSeconds()).padStart(2, "0");
   return `${year}${month}${day}T${hours}${minutes}${seconds}`;
 };
 
@@ -92,14 +92,12 @@ const formatUtcStamp = (value) => {
   return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
 };
 
-const withTime = (date, time) => {
+const parseTimeToMinutes = (time) => {
   const match = time?.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
 
-  if (!date || !match) {
+  if (!match) {
     return null;
   }
-
-  const parsedDate = new Date(`${date}T00:00:00`);
 
   let hours = Number(match[1]);
   const minutes = Number(match[2]);
@@ -113,63 +111,96 @@ const withTime = (date, time) => {
     hours += 12;
   }
 
-  parsedDate.setHours(hours, minutes, 0, 0);
-  return parsedDate;
+  return hours * 60 + minutes;
 };
 
-const addMinutes = (value, minutes) => new Date(value.getTime() + minutes * 60 * 1000);
+const createFestivalDateTime = (date, totalMinutes) => {
+  if (!date || !Number.isFinite(totalMinutes)) {
+    return null;
+  }
 
-const slugify = (value = "festival-schedule") =>
-  value
+  const value = new Date(`${date}T00:00:00Z`);
+
+  if (Number.isNaN(value.valueOf())) {
+    return null;
+  }
+
+  value.setUTCMinutes(value.getUTCMinutes() + totalMinutes, 0, 0);
+  return value;
+};
+
+const slugify = (value) =>
+  (value ?? "festival-schedule")
     .toLowerCase()
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "") || "festival-schedule";
 
+const getCalendarUidHost = (festival) => {
+  if (!festival.websiteUrl) {
+    return "festival.invalid";
+  }
+
+  try {
+    return new URL(festival.websiteUrl).hostname || "festival.invalid";
+  } catch {
+    return "festival.invalid";
+  }
+};
+
 const createCalendarHref = (festival, schedule = []) => {
+  const uidHost = getCalendarUidHost(festival);
   const events = schedule.flatMap((day) => {
     const datedEntries = (day.entries || [])
       .map((entry) => ({
         ...entry,
-        startsAt: withTime(day.date, entry.time)
+        startsAtMinutes: parseTimeToMinutes(entry.time)
       }))
-      .filter((entry) => entry.startsAt instanceof Date && !Number.isNaN(entry.startsAt.valueOf()))
-      .sort((left, right) => left.startsAt - right.startsAt);
+      .filter((entry) => Number.isFinite(entry.startsAtMinutes))
+      .sort((left, right) => left.startsAtMinutes - right.startsAtMinutes);
 
-    return datedEntries.map((entry, index) => {
-      const nextEntry = datedEntries[index + 1];
-      const endsAt =
-        nextEntry && nextEntry.startsAt > entry.startsAt
-          ? nextEntry.startsAt
-          : addMinutes(entry.startsAt, DEFAULT_EVENT_DURATION_MINUTES);
-      const location = [entry.stage, festival.location?.venue, festival.location?.city, festival.location?.country]
-        .filter(Boolean)
-        .join(", ");
-      const description = [
-        festival.description,
-        day.theme ? `Theme: ${day.theme}` : "",
-        day.notes?.length ? `Notes: ${day.notes.join(" ")}` : ""
-      ]
-        .filter(Boolean)
-        .join("\n");
-      const uid = `${slugify(festival.name)}-${day.date}-${slugify(entry.stage)}-${slugify(entry.artist)}@tools`;
+    return datedEntries
+      .map((entry) => {
+        const nextEntry = datedEntries.find((candidate) => candidate.startsAtMinutes > entry.startsAtMinutes);
+        const startsAt = createFestivalDateTime(day.date, entry.startsAtMinutes);
+        const endsAt = createFestivalDateTime(
+          day.date,
+          nextEntry ? nextEntry.startsAtMinutes : entry.startsAtMinutes + DEFAULT_EVENT_DURATION_MINUTES
+        );
 
-      return [
-        "BEGIN:VEVENT",
-        `UID:${uid}`,
-        `DTSTAMP:${formatUtcStamp(new Date())}`,
-        foldIcsLine(`SUMMARY:${escapeIcsText(entry.artist)}`),
-        foldIcsLine(`DTSTART;TZID=${FESTIVAL_TIME_ZONE}:${formatIcsDateTime(entry.startsAt)}`),
-        foldIcsLine(`DTEND;TZID=${FESTIVAL_TIME_ZONE}:${formatIcsDateTime(endsAt)}`),
-        foldIcsLine(`LOCATION:${escapeIcsText(location)}`),
-        foldIcsLine(`DESCRIPTION:${escapeIcsText(description)}`),
-        festival.websiteUrl ? foldIcsLine(`URL:${escapeIcsText(festival.websiteUrl)}`) : "",
-        "END:VEVENT"
-      ]
-        .filter(Boolean)
-        .join("\r\n");
-    });
+        if (!startsAt || !endsAt) {
+          return "";
+        }
+
+        const location = [entry.stage, festival.location?.venue, festival.location?.city, festival.location?.country]
+          .filter(Boolean)
+          .join(", ");
+        const description = [
+          festival.description,
+          day.theme ? `Theme: ${day.theme}` : "",
+          day.notes?.length ? `Notes: ${day.notes.join(" ")}` : ""
+        ]
+          .filter(Boolean)
+          .join("\n");
+        const uid = `${slugify(festival.name)}-${day.date}-${slugify(entry.stage)}-${slugify(entry.artist)}@${uidHost}`;
+
+        return [
+          "BEGIN:VEVENT",
+          `UID:${uid}`,
+          `DTSTAMP:${formatUtcStamp(new Date())}`,
+          foldIcsLine(`SUMMARY:${escapeIcsText(entry.artist)}`),
+          foldIcsLine(`DTSTART;TZID=${FESTIVAL_TIME_ZONE}:${formatIcsDateTime(startsAt)}`),
+          foldIcsLine(`DTEND;TZID=${FESTIVAL_TIME_ZONE}:${formatIcsDateTime(endsAt)}`),
+          foldIcsLine(`LOCATION:${escapeIcsText(location)}`),
+          foldIcsLine(`DESCRIPTION:${escapeIcsText(description)}`),
+          festival.websiteUrl ? foldIcsLine(`URL:${escapeIcsText(festival.websiteUrl)}`) : "",
+          "END:VEVENT"
+        ]
+          .filter(Boolean)
+          .join("\r\n");
+      })
+      .filter(Boolean);
   });
 
   if (!events.length) {
