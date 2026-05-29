@@ -1,5 +1,177 @@
 const app = document.querySelector("#app");
 const sectionTemplate = document.querySelector("#section-template");
+let calendarDownloadUrl = "";
+
+const DEFAULT_EVENT_DURATION_MINUTES = 60;
+const FESTIVAL_TIME_ZONE = "Europe/Dublin";
+const FESTIVAL_TIME_ZONE_BLOCK = [
+  "BEGIN:VTIMEZONE",
+  `TZID:${FESTIVAL_TIME_ZONE}`,
+  "X-LIC-LOCATION:Europe/Dublin",
+  "BEGIN:DAYLIGHT",
+  "TZOFFSETFROM:+0000",
+  "TZOFFSETTO:+0100",
+  "TZNAME:IST",
+  "DTSTART:19700329T010000",
+  "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU",
+  "END:DAYLIGHT",
+  "BEGIN:STANDARD",
+  "TZOFFSETFROM:+0100",
+  "TZOFFSETTO:+0000",
+  "TZNAME:GMT",
+  "DTSTART:19701025T020000",
+  "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU",
+  "END:STANDARD",
+  "END:VTIMEZONE"
+].join("\r\n");
+
+const setCalendarDownloadUrl = (nextUrl) => {
+  if (calendarDownloadUrl) {
+    URL.revokeObjectURL(calendarDownloadUrl);
+  }
+
+  calendarDownloadUrl = nextUrl;
+};
+
+const escapeIcsText = (value = "") =>
+  value
+    .replace(/\\/g, "\\\\")
+    .replace(/\r?\n/g, "\\n")
+    .replace(/;/g, "\\;")
+    .replace(/,/g, "\\,");
+
+const foldIcsLine = (line = "") => {
+  if (line.length <= 75) {
+    return line;
+  }
+
+  const chunks = [];
+  for (let index = 0; index < line.length; index += 75) {
+    chunks.push(index === 0 ? line.slice(index, index + 75) : ` ${line.slice(index, index + 75)}`);
+  }
+
+  return chunks.join("\r\n");
+};
+
+const formatIcsDateTime = (value) => {
+  const year = value.getFullYear();
+  const month = String(value.getMonth() + 1).padStart(2, "0");
+  const day = String(value.getDate()).padStart(2, "0");
+  const hours = String(value.getHours()).padStart(2, "0");
+  const minutes = String(value.getMinutes()).padStart(2, "0");
+  const seconds = String(value.getSeconds()).padStart(2, "0");
+  return `${year}${month}${day}T${hours}${minutes}${seconds}`;
+};
+
+const formatUtcStamp = (value) => {
+  const year = value.getUTCFullYear();
+  const month = String(value.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(value.getUTCDate()).padStart(2, "0");
+  const hours = String(value.getUTCHours()).padStart(2, "0");
+  const minutes = String(value.getUTCMinutes()).padStart(2, "0");
+  const seconds = String(value.getUTCSeconds()).padStart(2, "0");
+  return `${year}${month}${day}T${hours}${minutes}${seconds}Z`;
+};
+
+const withTime = (date, time) => {
+  const match = time?.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+
+  if (!date || !match) {
+    return null;
+  }
+
+  const parsedDate = new Date(`${date}T00:00:00`);
+
+  let hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  const meridiem = match[3].toUpperCase();
+
+  if (hours === 12) {
+    hours = 0;
+  }
+
+  if (meridiem === "PM") {
+    hours += 12;
+  }
+
+  parsedDate.setHours(hours, minutes, 0, 0);
+  return parsedDate;
+};
+
+const addMinutes = (value, minutes) => new Date(value.getTime() + minutes * 60 * 1000);
+
+const slugify = (value = "festival-schedule") =>
+  value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "festival-schedule";
+
+const createCalendarHref = (festival, schedule = []) => {
+  const events = schedule.flatMap((day) => {
+    const datedEntries = (day.entries || [])
+      .map((entry) => ({
+        ...entry,
+        startsAt: withTime(day.date, entry.time)
+      }))
+      .filter((entry) => entry.startsAt instanceof Date && !Number.isNaN(entry.startsAt.valueOf()))
+      .sort((left, right) => left.startsAt - right.startsAt);
+
+    return datedEntries.map((entry, index) => {
+      const nextEntry = datedEntries[index + 1];
+      const endsAt =
+        nextEntry && nextEntry.startsAt > entry.startsAt
+          ? nextEntry.startsAt
+          : addMinutes(entry.startsAt, DEFAULT_EVENT_DURATION_MINUTES);
+      const location = [entry.stage, festival.location?.venue, festival.location?.city, festival.location?.country]
+        .filter(Boolean)
+        .join(", ");
+      const description = [
+        festival.description,
+        day.theme ? `Theme: ${day.theme}` : "",
+        day.notes?.length ? `Notes: ${day.notes.join(" ")}` : ""
+      ]
+        .filter(Boolean)
+        .join("\n");
+      const uid = `${slugify(festival.name)}-${day.date}-${slugify(entry.stage)}-${slugify(entry.artist)}@tools`;
+
+      return [
+        "BEGIN:VEVENT",
+        `UID:${uid}`,
+        `DTSTAMP:${formatUtcStamp(new Date())}`,
+        foldIcsLine(`SUMMARY:${escapeIcsText(entry.artist)}`),
+        foldIcsLine(`DTSTART;TZID=${FESTIVAL_TIME_ZONE}:${formatIcsDateTime(entry.startsAt)}`),
+        foldIcsLine(`DTEND;TZID=${FESTIVAL_TIME_ZONE}:${formatIcsDateTime(endsAt)}`),
+        foldIcsLine(`LOCATION:${escapeIcsText(location)}`),
+        foldIcsLine(`DESCRIPTION:${escapeIcsText(description)}`),
+        festival.websiteUrl ? foldIcsLine(`URL:${escapeIcsText(festival.websiteUrl)}`) : "",
+        "END:VEVENT"
+      ]
+        .filter(Boolean)
+        .join("\r\n");
+    });
+  });
+
+  if (!events.length) {
+    return "";
+  }
+
+  const calendar = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//eoinobrien/tools//Festival Schedule//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    foldIcsLine(`X-WR-CALNAME:${escapeIcsText(`${festival.name} schedule`)}`),
+    `X-WR-TIMEZONE:${FESTIVAL_TIME_ZONE}`,
+    FESTIVAL_TIME_ZONE_BLOCK,
+    ...events,
+    "END:VCALENDAR"
+  ].join("\r\n");
+
+  return URL.createObjectURL(new Blob([calendar], { type: "text/calendar;charset=utf-8" }));
+};
 
 const createSection = (title, content) => {
   const section = sectionTemplate.content.firstElementChild.cloneNode(true);
@@ -40,6 +212,15 @@ const createLink = (label, url) => {
   a.target = "_blank";
   a.rel = "noreferrer";
   return a;
+};
+
+const createDownloadLink = (label, url, fileName) => {
+  const link = document.createElement("a");
+  link.href = url;
+  link.textContent = label;
+  link.download = fileName;
+  link.className = "button-link";
+  return link;
 };
 
 const createLabeledList = (items = []) =>
@@ -326,7 +507,28 @@ const renderContact = (contact = {}, links = []) => {
 
 const renderApp = (data) => {
   app.innerHTML = "";
-  app.append(renderHero(data.festival));
+  const calendarHref = createCalendarHref(data.festival, data.schedule);
+  setCalendarDownloadUrl(calendarHref);
+
+  const hero = renderHero(data.festival);
+  const heroLinks = hero.querySelector(".row");
+  if (calendarHref) {
+    const linksRow = heroLinks || document.createElement("div");
+    linksRow.className = "row";
+    linksRow.append(
+      createDownloadLink(
+        "Add schedule to calendar (.ics)",
+        calendarHref,
+        `${slugify(data.festival.name)}-schedule.ics`
+      )
+    );
+
+    if (!heroLinks) {
+      hero.querySelector(".hero-content").append(linksRow);
+    }
+  }
+
+  app.append(hero);
 
   const grid = document.createElement("div");
   grid.className = "grid";
