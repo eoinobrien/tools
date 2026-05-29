@@ -20,6 +20,12 @@ Then open `http://localhost:8000`.
 
 To replace the sample content later, update `festival.sample.json` with festival details that conform to `festival.schema.json`.
 
+## GitHub Pages
+
+This repository includes a GitHub Actions workflow at `.github/workflows/pages.yml` that deploys the repository root to GitHub Pages on pushes to `main`.
+
+In the repository settings, set **Pages** to use **GitHub Actions** as the source. Once enabled, the site will publish automatically from the workflow.
+
 The current data structure supports:
 
 - festival overview

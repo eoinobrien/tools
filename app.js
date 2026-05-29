@@ -363,7 +363,7 @@ const renderError = (message) => {
   app.append(error);
 };
 
-fetch("/festival.sample.json")
+fetch("./festival.sample.json")
   .then((response) => {
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
