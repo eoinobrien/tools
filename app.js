@@ -135,7 +135,7 @@ const slugify = (value) =>
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "") || "festival-schedule";
+    .replace(/^-+|-+$/g, "");
 
 const getCalendarUidHost = (festival) => {
   if (!festival.websiteUrl) {
@@ -571,6 +571,7 @@ const renderContact = (contact = {}, links = []) => {
 
 const renderApp = (data) => {
   app.innerHTML = "";
+  setCalendarDownloadUrl("");
   const calendarHref = createCalendarHref(data.festival, data.schedule);
   setCalendarDownloadUrl(calendarHref);
 
