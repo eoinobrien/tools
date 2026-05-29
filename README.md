@@ -30,6 +30,7 @@ The current data structure supports:
 
 - festival overview
 - day-by-day schedule
+- calendar export of the schedule as an `.ics` file for import on phones and calendar apps
 - wellness information
 - visitor guidance such as weather, access, age limits, payments, and parking
 - transport, rules, contact details, and official links
