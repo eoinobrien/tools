@@ -330,39 +330,84 @@ const renderSchedule = (schedule = []) => {
     return null;
   }
 
-  return createSection(
-    "Schedule",
-    createList(schedule, (day) => {
-      const wrapper = document.createElement("div");
-      const title = document.createElement("h3");
-      title.textContent = day.label;
-      wrapper.append(title);
+  const daysWrapper = document.createElement("div");
+  daysWrapper.className = "schedule-days";
 
-      if (day.theme) {
-        wrapper.append(createParagraph(day.theme, "muted"));
-      }
+  schedule.forEach((day) => {
+    const dayCard = document.createElement("div");
+    dayCard.className = "day-card";
 
-      if (day.gatesOpen) {
-        wrapper.append(createParagraph(`Gates open: ${day.gatesOpen}`));
-      }
+    const dayHeader = document.createElement("div");
+    dayHeader.className = "day-header";
 
-      if (day.notes?.length) {
-        wrapper.append(createBulletList(day.notes));
-      }
+    const title = document.createElement("h3");
+    title.className = "day-title";
+    title.textContent = day.label;
+    dayHeader.append(title);
 
-      wrapper.append(
-        createList(day.entries || [], (entry) => {
-          const entryWrap = document.createElement("div");
-          const strong = document.createElement("strong");
-          strong.textContent = `${entry.time} — ${entry.artist}`;
-          entryWrap.append(strong, createParagraph(entry.stage, "muted"));
-          return entryWrap;
-        })
-      );
+    if (day.theme) {
+      const theme = document.createElement("span");
+      theme.className = "day-theme";
+      theme.textContent = day.theme;
+      dayHeader.append(theme);
+    }
 
-      return wrapper;
-    })
-  );
+    dayCard.append(dayHeader);
+
+    const dayBody = document.createElement("div");
+    dayBody.className = "day-body";
+
+    const dayMeta = document.createElement("div");
+    dayMeta.className = "day-meta";
+
+    if (day.gatesOpen) {
+      const pill = document.createElement("span");
+      pill.className = "pill";
+      pill.textContent = `Gates open: ${day.gatesOpen}`;
+      dayMeta.append(pill);
+    }
+
+    if (day.notes?.length) {
+      day.notes.forEach((note) => {
+        const noteEl = document.createElement("p");
+        noteEl.className = "day-note";
+        noteEl.textContent = note;
+        dayMeta.append(noteEl);
+      });
+    }
+
+    if (dayMeta.children.length) {
+      dayBody.append(dayMeta);
+    }
+
+    if ((day.entries || []).length) {
+      const entriesList = createList(day.entries, (entry) => {
+        const entryWrap = document.createElement("div");
+        entryWrap.className = "entry";
+
+        const time = document.createElement("span");
+        time.className = "entry-time";
+        time.textContent = entry.time;
+
+        const artist = document.createElement("span");
+        artist.className = "entry-artist";
+        artist.textContent = entry.artist;
+
+        const stageBadge = document.createElement("span");
+        stageBadge.className = `stage-badge stage-${slugify(entry.stage)}`;
+        stageBadge.textContent = entry.stage;
+
+        entryWrap.append(time, artist, stageBadge);
+        return entryWrap;
+      });
+      dayBody.append(entriesList);
+    }
+
+    dayCard.append(dayBody);
+    daysWrapper.append(dayCard);
+  });
+
+  return createSection("Schedule", daysWrapper);
 };
 
 const renderWellness = (wellnessArea) => {
